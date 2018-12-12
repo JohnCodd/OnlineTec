@@ -15,6 +15,7 @@ public:
 	void Render(SDL_Renderer* renderer);
 	void initTexture(SDL_Renderer* renderer, std::string string);
 	void handleInput();
+	void setPosition(Vector2f);
 	Vector2f getPosition();
 	SDL_Texture* loadTexture(std::string path, SDL_Renderer* renderer);
 	bool moved;

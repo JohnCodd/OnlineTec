@@ -4,6 +4,7 @@
 Game::Game(int fps, int screenWidth, int screenHeight) : m_window(NULL), screenSurface(NULL), m_renderer(NULL), m_ready(false)
 {
 	m_player = Player();
+	otherPlayer = Player();
 	if (SDL_Init(SDL_INIT_VIDEO) < 0)
 	{
 		printf("SDL could not initialize! SDL_Error: %s\n", SDL_GetError());
@@ -38,6 +39,8 @@ Game::Game(int fps, int screenWidth, int screenHeight) : m_window(NULL), screenS
 			}
 			msperframe = (1.0 / fps) * 1000; //Set MS PER FRAME
 			m_player.initTexture(m_renderer, "Resources/Sprites/redcircle.png");
+			otherPlayer.initTexture(m_renderer, "Resources/Sprites/redcircle.png");
+
 		}
 	}
 
@@ -81,6 +84,8 @@ void Game::Update(double dt)
 void Game::Render()
 {
 	SDL_RenderClear(m_renderer);
+	otherPlayer.setPosition(myClient.getOtherPlayer());
+	otherPlayer.Render(m_renderer);
 	m_player.Render(m_renderer);
 	SDL_RenderPresent(m_renderer);
 }

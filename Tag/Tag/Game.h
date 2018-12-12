@@ -28,6 +28,7 @@ private:
 	bool quit = false;
 	int msperframe;
 	Player m_player;
+	Player otherPlayer;
 	SDL_Texture* texture;
 	Client myClient = Client("127.0.0.1", 1111); //Create client to localhost ("127.0.0.1") on port 1111
 };

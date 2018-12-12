@@ -79,6 +79,11 @@ void Player::handleInput()
 	}
 }
 
+void Player::setPosition(Vector2f v)
+{
+	position = v;
+}
+
 Vector2f Player::getPosition()
 {
 	return position;
