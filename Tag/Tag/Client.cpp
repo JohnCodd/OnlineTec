@@ -37,6 +37,17 @@ bool Client::ProcessPacket(Packet _packettype)
 				y = stof(current);
 		}
 		otherPlayer = Vector2f(x, y);
+
+		//std::cout << "Recieved update" << std::endl;
+
+		break;
+	}
+	case P_PlayerNo:
+	{
+		std::string Message; //string to store our message we received
+		if (!GetString(Message)) //Get the chat message and store it in variable: Message
+			return false; //If we do not properly get the chat message, return false
+		ID = std::stoi(Message);
 		break;
 	}
 	default: //If packet type is not accounted for
@@ -77,7 +88,7 @@ Client::Client(std::string IP, int PORT)
 		MessageBoxA(NULL, "Winsock startup failed", "Error", MB_OK | MB_ICONERROR);
 		exit(0);
 	}
-
+	otherPlayer = Vector2f(-200, -200);
 	addr.sin_addr.s_addr = inet_addr(IP.c_str()); //Address (127.0.0.1) = localhost (this pc)
 	addr.sin_port = htons(PORT); //Port 
 	addr.sin_family = AF_INET; //IPv4 Socket
@@ -115,4 +126,9 @@ bool Client::CloseConnection()
 Vector2f Client::getOtherPlayer()
 {
 	return otherPlayer;
+}
+
+int Client::getID()
+{
+	return ID;
 }

@@ -11,6 +11,8 @@ public:
 	void ProcessEvents(SDL_Event& e);
 	void close();
 	void loadTexture(std::string m_path);
+	bool checkIntersection(SDL_Rect r1, SDL_Rect r2);
+	bool checkCircleCollision(SDL_Rect r1, SDL_Rect r2);
 	enum KeyPressSurfaces
 	{
 		KEY_PRESS_SURFACE_DEFAULT,

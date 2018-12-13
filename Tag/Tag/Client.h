@@ -11,6 +11,7 @@ enum Packet
 {
 	P_ChatMessage,
 	P_PlayerData,
+	P_PlayerNo,
 	P_Test
 };
 
@@ -25,6 +26,7 @@ public: //Public functions
 	bool GetVector(std::string & _v);
 	bool CloseConnection();
 	Vector2f getOtherPlayer();
+	int getID();
 private: //Private functions
 	bool ProcessPacket(Packet _packettype);
 	static void ClientThread();
@@ -44,6 +46,7 @@ private:
 	SOCKET Connection;//This client's connection to the server
 	SOCKADDR_IN addr; //Address to be binded to our Connection socket
 	int sizeofaddr = sizeof(addr); //Need sizeofaddr for the connect function
+	int ID;
 	Vector2f otherPlayer;
 };
 

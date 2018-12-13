@@ -1,7 +1,11 @@
-﻿  Game.cpp
-c:\users\c00208049\documents\online game tec\tag\tag\game.cpp(40): warning C4244: '=': conversion from 'double' to 'int', possible loss of data
+﻿  Client.cpp
+  Game.cpp
+c:\users\c00208049\documents\online game tec\tag\tag\game.cpp(43): warning C4244: '=': conversion from 'double' to 'int', possible loss of data
+c:\users\c00208049\documents\online game tec\tag\tag\game.cpp(144): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+c:\users\c00208049\documents\online game tec\tag\tag\game.cpp(145): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+c:\users\c00208049\documents\online game tec\tag\tag\game.cpp(146): warning C4244: 'initializing': conversion from 'int' to 'float', possible loss of data
+c:\users\c00208049\documents\online game tec\tag\tag\game.cpp(147): warning C4244: 'initializing': conversion from 'int' to 'float', possible loss of data
   Main.cpp
-  Player.cpp
-c:\users\c00208049\documents\online game tec\tag\tag\player.cpp(21): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
+  SendGetMethods.cpp
   Generating Code...
   Tag.vcxproj -> C:\Users\c00208049\Documents\Online Game Tec\Tag\Debug\Tag.exe

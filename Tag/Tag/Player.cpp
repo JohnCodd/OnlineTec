@@ -55,27 +55,24 @@ void Player::handleInput()
 	//Select surfaces based on key press
 	if (input.keyHold("W"))
 	{
-		vel.y = -1;
-		moved = true;
+		vel.y += -1;
 	}
 	if (input.keyHold("S"))
 	{
-		vel.y = 1;
-		moved = true;
+		vel.y += 1;
 	}
 	if (input.keyHold("A"))
 	{
-		vel.x = -1;
-		moved = true;
+		vel.x += -1;
 	}
 	if (input.keyHold("D"))
 	{		
-		vel.x = 1;
-		moved = true;
+		vel.x += 1;
 	}
 	if (vel != Vector2f(0, 0))
 	{
 		vel = vel.normalise() * mSpeed;
+		moved = true;
 	}
 }
 
@@ -87,6 +84,11 @@ void Player::setPosition(Vector2f v)
 Vector2f Player::getPosition()
 {
 	return position;
+}
+
+SDL_Rect Player::getRect()
+{
+	return m_rect;
 }
 
 SDL_Texture* Player::loadTexture(std::string path, SDL_Renderer* renderer)

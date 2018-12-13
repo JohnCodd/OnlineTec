@@ -10,6 +10,7 @@ enum Packet
 {
 	P_ChatMessage,
 	P_PlayerData,
+	P_PlayerNo,
 	P_Test
 };
 
@@ -34,6 +35,8 @@ private:
 
 	bool SendString(int ID, std::string & _string);
 	bool GetString(int ID, std::string & _string);
+
+	bool SendID(int ID);
 
 	bool ProcessPacket(int ID, Packet _packettype);
 

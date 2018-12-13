@@ -49,6 +49,7 @@ bool Server::ListenForNewConnection()
 		CreateThread(NULL, NULL, (LPTHREAD_START_ROUTINE)ClientHandlerThread, (LPVOID)(TotalConnections), NULL, NULL); //Create Thread to handle this client. The index in the socket array for this thread is the value (i).
 		std::string MOTD = "MOTD: Welcome! This is the message of the day!.";
 		SendString(TotalConnections, MOTD);
+		SendID(TotalConnections);
 		TotalConnections += 1; //Incremenent total # of clients that have connected
 		return true;
 	}

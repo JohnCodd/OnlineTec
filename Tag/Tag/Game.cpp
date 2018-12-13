@@ -5,6 +5,7 @@ Game::Game(int fps, int screenWidth, int screenHeight) : m_window(NULL), screenS
 {
 	m_player = Player();
 	otherPlayer = Player();
+	otherPlayer.setPosition(Vector2f(-200, -200));
 	if (SDL_Init(SDL_INIT_VIDEO) < 0)
 	{
 		printf("SDL could not initialize! SDL_Error: %s\n", SDL_GetError());
@@ -30,6 +31,8 @@ Game::Game(int fps, int screenWidth, int screenHeight) : m_window(NULL), screenS
 			else
 			{
 				m_ready = true;
+				std::string playerPos = "X:" + std::to_string(m_player.getPosition().x) + ",Y:" + std::to_string(m_player.getPosition().y);
+				myClient.SendVector(playerPos);
 			}
 			//Initialize PNG loading
 			int imgFlags = IMG_INIT_PNG;
@@ -38,8 +41,16 @@ Game::Game(int fps, int screenWidth, int screenHeight) : m_window(NULL), screenS
 				printf("SDL_image could not initialize! SDL_image Error: %s\n", IMG_GetError());
 			}
 			msperframe = (1.0 / fps) * 1000; //Set MS PER FRAME
-			m_player.initTexture(m_renderer, "Resources/Sprites/redcircle.png");
-			otherPlayer.initTexture(m_renderer, "Resources/Sprites/redcircle.png");
+			if (myClient.getID() % 2 == 0)
+			{
+				m_player.initTexture(m_renderer, "Resources/Sprites/redcircle.png");
+				otherPlayer.initTexture(m_renderer, "Resources/Sprites/bluecircle.png");
+			}
+			else
+			{
+				m_player.initTexture(m_renderer, "Resources/Sprites/bluecircle.png");
+				otherPlayer.initTexture(m_renderer, "Resources/Sprites/redcircle.png");
+			}
 
 		}
 	}
@@ -79,12 +90,16 @@ void Game::Run()
 void Game::Update(double dt)
 {
 	m_player.Update(dt);
+	otherPlayer.setPosition(myClient.getOtherPlayer());
+	if (checkCircleCollision(m_player.getRect(), otherPlayer.getRect()))
+	{
+		std::cout << "Intersection" << std::endl;
+	}
 }
 
 void Game::Render()
 {
 	SDL_RenderClear(m_renderer);
-	otherPlayer.setPosition(myClient.getOtherPlayer());
 	otherPlayer.Render(m_renderer);
 	m_player.Render(m_renderer);
 	SDL_RenderPresent(m_renderer);
@@ -112,4 +127,31 @@ void Game::close()
 void Game::loadTexture(std::string m_path)
 {
 
+}
+
+bool Game::checkIntersection(SDL_Rect r1, SDL_Rect r2)
+{
+	return !(
+		r2.x > r1.x + r1.w ||
+		r2.x + r2.w < r1.x ||
+		r2.y > r1.y + r1.h ||
+		r2.y + r2.h < r1.y
+		);
+}
+
+bool Game::checkCircleCollision(SDL_Rect r1, SDL_Rect r2)
+{
+	Vector2f p1 = Vector2f(r1.x, r1.y);
+	Vector2f p2 = Vector2f(r2.x, r2.y);
+	float radius1 = r1.w / 2;
+	float radius2 = r2.w / 2;
+	float distance = sqrt(((p2.x - p1.x) * (p2.x - p1.x)) + ((p2.y - p1.y) * (p2.y - p1.y)));
+	if (distance < radius1 + radius2)
+	{
+		return true;
+	}
+	else
+	{
+		return false;
+	}
 }
